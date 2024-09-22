@@ -13,19 +13,17 @@ from playground.base_function import (create_bitable_field, get_bitable_fields,
 # Load environment variables
 load_dotenv(find_dotenv())
 
-APP_TOKEN = os.environ['APP_TOKEN']
-PERSONAL_BASE_TOKEN = os.environ['PERSONAL_BASE_TOKEN']
-TABLE_ID = os.environ['TABLE_ID']
+# APP_TOKEN = os.environ['APP_TOKEN']
+# PERSONAL_BASE_TOKEN = os.environ['PERSONAL_BASE_TOKEN']
+# TABLE_ID = os.environ['TABLE_ID']
 
 # Define necessary variables
 yesterday = (datetime.today() - timedelta(1)).strftime('%Y-%m-%d')
 last_2day = (datetime.today() - timedelta(2)).strftime('%Y-%m-%d')
 today = datetime.today().strftime('%Y-%m-%d')
 api_url = 'https://graph.facebook.com/v20.0/'
-app_id = 'YOUR_APP_ID'  # Thay bằng App ID của bạn
-app_secret = 'YOUR_APP_SECRET'  # Thay bằng App Secret của bạn
-access_token = 'EAAJLi0uToY8BOxHYQVW0f8KZCTDZAKNXp2l8YHIt7ciyKeBR0ZCxexlfmKZA6izn8odmxkDl85nAaZALwMsKWhYZCv1dWtN8dFCQPkhRv0uqrhDMW0O1JFomeZBxNfWDKrAAxrDjnp6YgtmW1IgyOD7yz42B9ACLq1h3SopoZAgQZA5ZCB3lCplv1ZAIEwLZASxHMTX0MbKUG11UDNMeKtYZD'  # Thay bằng Access Token của bạn
-list_account = ['527991475937136']  # Thay bằng danh sách các tài khoản của bạn
+access_token = ''  # Thay bằng Access Token của bạn
+list_account = []  # Thay bằng danh sách các tài khoản của bạn
 
 
 # Function to create a report and get the job_id
