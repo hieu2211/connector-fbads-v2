@@ -13,21 +13,23 @@ from playground.base_function import (create_bitable_field, get_bitable_fields,
 # Load environment variables
 load_dotenv(find_dotenv())
 
-# APP_TOKEN = os.environ['APP_TOKEN']
-# PERSONAL_BASE_TOKEN = os.environ['PERSONAL_BASE_TOKEN']
-# TABLE_ID = os.environ['TABLE_ID']
+APP_TOKEN = ""
+PERSONAL_BASE_TOKEN = ""
+TABLE_ID = ""
 
 # Define necessary variables
-yesterday = (datetime.today() - timedelta(1)).strftime('%Y-%m-%d')
-last_2day = (datetime.today() - timedelta(2)).strftime('%Y-%m-%d')
+yesterday = ""
+last_2day = ""
 today = datetime.today().strftime('%Y-%m-%d')
 api_url = 'https://graph.facebook.com/v20.0/'
 access_token = ''  # Thay bằng Access Token của bạn
 list_account = []  # Thay bằng danh sách các tài khoản của bạn
 
 
-# Function to create a report and get the job_id
+# Function to create a report and get the job_idx
 def create_report(account):
+  # print("h" + yesterday)x`x
+  # print(last_2day)
   url = api_url + 'act_' + account + '/insights'
   params = {
       "access_token": access_token,
@@ -98,7 +100,7 @@ def csv_to_df(job_id):
   return dft
 
 
-# Main function
+  # Main function
 def mainfnc():
   # Build Lark client
   client: BaseClient = BaseClient.builder() \
@@ -110,6 +112,7 @@ def mainfnc():
   bitable_fields = get_bitable_fields(client, TABLE_ID)
   if not bitable_fields:
     print("Could not retrieve Bitable fields. Exiting.")
+    print("<script>showErrorMessage();</script>")
     return
 
   for account in list_account:
@@ -119,7 +122,7 @@ def mainfnc():
     except Exception as e:
       print(f"Failed to create report for account {account}. Error: {e}")
       continue
-
+    print(1)
     # Wait for the report to be ready
     if wait_for_report(job_id):
       try:
@@ -127,7 +130,7 @@ def mainfnc():
       except Exception as e:
         print(f"Failed to retrieve CSV data for account {account}. Error: {e}")
         continue
-
+      print(2)
       if df is None or df.empty:
         print(f"No data retrieved for account {account}.")
         continue
@@ -152,6 +155,9 @@ def mainfnc():
                               bitable_fields)
     else:
       print(f"Report for account {account} did not complete.")
+
+  # Nếu công việc hoàn thành mà không có lỗi nào
+  print("<script>showSuccessMessage();</script>")
 
 
 # Run main function
