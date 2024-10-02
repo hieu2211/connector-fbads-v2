@@ -35,6 +35,7 @@ def index():
             synsc_facebook_ads.level_ads = level_ads
             # Call the main function
             result = mainfnc()
+            print(f"result {result}")
             if result is not None:
                 return jsonify(status='success', message=result)
             else:

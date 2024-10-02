@@ -36,7 +36,7 @@ fb_to_bitable_mapping = {
         "name": "Account name",
         "type": 1
     },  # text
-    "account_currency": {
+    "currency": {
         "name": "Currency",
         "type": 1
     },  # text
@@ -84,35 +84,35 @@ fb_to_bitable_mapping = {
         "name": "Frequency",
         "type": 2
     },  # number
-    "spend": {
+    "amount_spent__vnd_": {
         "name": "Amount spent",
         "type": 2
     },  # number
-    "clicks": {
+    "clicks__all_": {
         "name": "Clicks (all)",
         "type": 2
     },  # number
-    "website_ctr": {
+    "ctr__link_click_through_rate_": {
         "name": "CTR (link click-through rate)",
         "type": 2
     },  # number
-    "cpc": {
+    "cpc__all___vnd_": {
         "name": "CPC (All)",
         "type": 2
     },  # number
-    "ctr": {
+    "ctr__all_": {
         "name": "CTR (all)",
         "type": 2
     },  # number
-    "cpm": {
+    "cpm__cost_per_1_000_impressions___vnd_": {
         "name": "CPM",
         "type": 2
     },  # number
-    "cpp": {
+    "cost_per_1_000_accounts_center_accounts_reached__vnd_": {
         "name": "Cost per 1,000 people reached",
         "type": 2
     },  # number
-    "video_thruplay_watched_actions": {
+    "thruplays": {
         "name": "ThruPlays",
         "type": 2
     },  # number
@@ -160,59 +160,59 @@ fb_to_bitable_mapping = {
     #     "name": "Engagement rate ranking",
     #     "type": 2
     # },  # number
-    "estimated_ad_recallers": {
+    "estimated_ad_recall_lift__people_": {
         "name": "Estimated ad recall lift (people)",
         "type": 2
     },  # number
-    "conversion_rate_ranking": {
-        "name": "Conversion rate ranking",
-        "type": 2
-    },  # number
-    "conversions": {
-        "name": "Conversions",
-        "type": 2
-    },  # number
-    "conversion_values": {
-        "name": "Conversion values",
-        "type": 2
-    },  # number
-    "outbound_clicks": {
-        "name": "Outbound clicks",
-        "type": 2
-    },  # number
+    # "conversion_rate_ranking": {
+    #     "name": "Conversion rate ranking",
+    #     "type": 2
+    # },  # number
+    # "conversions": {
+    #     "name": "Conversions",
+    #     "type": 2
+    # },  # number
+    # "conversion_values": {
+    #     "name": "Conversion values",
+    #     "type": 2
+    # },  # number
+    # "outbound_clicks": {
+    #     "name": "Outbound clicks",
+    #     "type": 2
+    # },  # number
     "post_comments": {
         "name": "Post comments",
         "type": 2
     },  # number
-    "landing_page_view": {
-        "name": "Landing page views",
-        "type": 2
-    },  # number
-    "like": {
-        "name": "Page likes",
-        "type": 2
-    },  # number
-    "link_click": {
+    # "landing_page_view": {
+    #     "name": "Landing page views",
+    #     "type": 2
+    # },  # number
+    # "like": {
+    #     "name": "Page likes",
+    #     "type": 2
+    # },  # number
+    "link_clicks": {
         "name": "Link clicks",
         "type": 2
     },  # number
-    "photo_view": {
-        "name": "Photo views",
-        "type": 2
-    },  # number
-    "post": {
+    # "photo_view": {
+    #     "name": "Photo views",
+    #     "type": 2
+    # },  # number
+    "post_shares": {
         "name": "Post shares",
         "type": 2
     },  # number
-    "post_reaction": {
+    "post_reactions": {
         "name": "Post reactions",
         "type": 2
     },  # number
-    "rsvp": {
-        "name": "Event responses",
-        "type": 2
-    },  # number
-    "video_view": {
+    # "rsvp": {
+    #     "name": "Event responses",
+    #     "type": 2
+    # },  # number
+    "3_second_video_plays": {
         "name": "3-second video plays",
         "type": 2
     },  # number
@@ -220,83 +220,83 @@ fb_to_bitable_mapping = {
         "name": "Page engagement",
         "type": 2
     },  # number
-    "post_engagement": {
+    "post_engagements": {
         "name": "Post engagement",
         "type": 2
     },  # number
-    "lead": {
-        "name": "All offsite leads plus all On-Facebook leads",
-        "type": 2
-    },  # number
-    "checkin": {
-        "name": "Check-ins",
-        "type": 2
-    },  # number
-    "credit_spent": {
-        "name": "Credit spends",
-        "type": 2
-    },  # number
-    "games.plays": {
-        "name": "Game plays",
-        "type": 2
-    },  # number
-    "onsite_conversion.post_save": {
-        "name": "Post saves",
-        "type": 2
-    },  # number
-    "onsite_conversion.purchase": {
-        "name": "On-Facebook Purchases",
-        "type": 2
-    },  # number
-    "onsite_conversion.lead_grouped": {
-        "name": "All On-Facebook leads",
-        "type": 2
-    },  # number
-    "offsite_conversion.fb_pixel_add_payment_info": {
-        "name": "Adds of payment info",
-        "type": 2
-    },  # number
-    "offsite_conversion.fb_pixel_add_to_cart": {
-        "name": "Adds to cart",
-        "type": 2
-    },  # number
-    "offsite_conversion.fb_pixel_add_to_wishlist": {
-        "name": "Adds to wishlist",
-        "type": 2
-    },  # number
-    "offsite_conversion.fb_pixel_complete_registration": {
-        "name": "Completed registration",
-        "type": 2
-    },  # number
-    "offsite_conversion.fb_pixel_initiate_checkout": {
-        "name": "Checkouts Initiated",
-        "type": 2
-    },  # number
-    "offsite_conversion.fb_pixel_lead": {
+    # "lead": {
+    #     "name": "All offsite leads plus all On-Facebook leads",
+    #     "type": 2
+    # },  # number
+    # "checkin": {
+    #     "name": "Check-ins",
+    #     "type": 2
+    # },  # number
+    # "credit_spent": {
+    #     "name": "Credit spends",
+    #     "type": 2
+    # },  # number
+    # "games.plays": {
+    #     "name": "Game plays",
+    #     "type": 2
+    # },  # number
+    # "onsite_conversion.post_save": {
+    #     "name": "Post saves",
+    #     "type": 2
+    # },  # number
+    # "onsite_conversion.purchase": {
+    #     "name": "On-Facebook Purchases",
+    #     "type": 2
+    # },  # number
+    # "onsite_conversion.lead_grouped": {
+    #     "name": "All On-Facebook leads",
+    #     "type": 2
+    # },  # number
+    # "offsite_conversion.fb_pixel_add_payment_info": {
+    #     "name": "Adds of payment info",
+    #     "type": 2
+    # },  # number
+    # "offsite_conversion.fb_pixel_add_to_cart": {
+    #     "name": "Adds to cart",
+    #     "type": 2
+    # },  # number
+    # "offsite_conversion.fb_pixel_add_to_wishlist": {
+    #     "name": "Adds to wishlist",
+    #     "type": 2
+    # },  # number
+    # "offsite_conversion.fb_pixel_complete_registration": {
+    #     "name": "Completed registration",
+    #     "type": 2
+    # },  # number
+    # "offsite_conversion.fb_pixel_initiate_checkout": {
+    #     "name": "Checkouts Initiated",
+    #     "type": 2
+    # },  # number
+    "leads": {
         "name": "Leads",
         "type": 2
     },  # number
-    "offsite_conversion.fb_pixel_purchase": {
-        "name": "Purchases",
-        "type": 2
-    },  # number
-    "offsite_conversion.fb_pixel_search": {
-        "name": "Searches",
-        "type": 2
-    },  # number
-    "offsite_conversion.fb_pixel_view_content": {
+    # "offsite_conversion.fb_pixel_purchase": {
+    #     "name": "Purchases",
+    #     "type": 2
+    # },  # number
+    # "offsite_conversion.fb_pixel_search": {
+    #     "name": "Searches",
+    #     "type": 2
+    # },  # number
+    "website_content_views": {
         "name": "Content views",
         "type": 2
     },  # number
-    "onsite_conversion.messaging_block": {
-        "name": "Blocked messaging connections",
-        "type": 2
-    },  # number
-    "onsite_conversion.messaging_conversation_started_7d": {
+    # "onsite_conversion.messaging_block": {
+    #     "name": "Blocked messaging connections",
+    #     "type": 2
+    # },  # number
+    "messaging_conversations_started": {
         "name": "Messaging Conversations Started",
         "type": 2
     },  # number
-    "onsite_conversion.messaging_first_reply": {
+    "new_messaging_contacts": {
         "name": "New messaging connections",
         "type": 2
     }  # number
@@ -362,57 +362,26 @@ def csv_to_df(job_id):
                                         regex=True)
     df.columns = df.columns.str.lower()
 
-    # "video_30_sec_watched_actions",
-    # "video_p25_watched_actions", "video_p50_watched_actions",
-    # "video_p75_watched_actions", "video_p95_watched_actions",
-    # "video_p100_watched_actions", "video_play_actions",
-    # "instant_experience_clicks_to_open",
-    # "instant_experience_clicks_to_start",
-    # "instant_experience_outbound_clicks", "engagement_rate_ranking",
-    # "estimated_ad_recallers", "conversion_rate_ranking",
-    # Create a new dataframe with selected columns
     dft = pd.DataFrame(columns=[
-        "reporting_starts", "account_name", "account_currency", "account_id",
+        "reporting_starts", "account_name", "currency", "account_id",
         "campaign_name", "adset_name", "ad_name", "campaign_id", "adset_id",
-        "ad_id", "objective", "reach", "impressions", "frequency", "spend",
-        "clicks", "website_ctr", "cpc", "ctr", "cpm", "cpp",
-        "video_thruplay_watched_actions", "conversions", "conversion_values",
-        "outbound_clicks", "post_comments", "landing_page_view", "like",
-        "link_click", "photo_view", "post", "post_reaction", "rsvp",
-        "video_view", "page_engagement", "post_engagement", "lead", "checkin",
-        "credit_spent", "games.plays", "onsite_conversion.post_save",
-        "onsite_conversion.purchase", "onsite_conversion.lead_grouped",
-        "offsite_conversion.fb_pixel_add_payment_info",
-        "offsite_conversion.fb_pixel_add_to_cart",
-        "offsite_conversion.fb_pixel_add_to_wishlist",
-        "offsite_conversion.fb_pixel_complete_registration",
-        "offsite_conversion.fb_pixel_initiate_checkout",
-        "offsite_conversion.fb_pixel_lead",
-        "offsite_conversion.fb_pixel_purchase",
-        "offsite_conversion.fb_pixel_search",
-        "offsite_conversion.fb_pixel_view_content",
-        "onsite_conversion.messaging_block",
-        "onsite_conversion.messaging_conversation_started_7d",
-        "onsite_conversion.messaging_first_reply", "mobile_app_install",
-        "app_use", "app_install",
-        "app_custom_event.fb_mobile_achievement_unlocked",
-        "app_custom_event.fb_mobile_activate_app",
-        "app_custom_event.fb_mobile_add_payment_info",
-        "app_custom_event.fb_mobile_add_to_cart",
-        "app_custom_event.fb_mobile_add_to_wishlist",
-        "app_custom_event.fb_mobile_complete_registration",
-        "app_custom_event.fb_mobile_content_view",
-        "app_custom_event.fb_mobile_initiated_checkout",
-        "app_custom_event.fb_mobile_level_achieved",
-        "app_custom_event.fb_mobile_purchase",
-        "app_custom_event.fb_mobile_rate", "app_custom_event.fb_mobile_search",
-        "app_custom_event.fb_mobile_spent_credits",
-        "app_custom_event.fb_mobile_tutorial_completion"
+        "ad_id", "objective", "reach", "impressions", "frequency",
+        "amount_spent__vnd_", "clicks__all_", "ctr__link_click_through_rate_",
+        "cpc__all___vnd_", "ctr__all_",
+        "cpm__cost_per_1_000_impressions___vnd_",
+        "cost_per_1_000_accounts_center_accounts_reached__vnd_", "thruplays",
+        "post_comments", "link_clicks", "post_shares", "post_reactions",
+        "3_second_video_plays", "page_engagement", "post_engagements", "leads",
+        "onsite_conversion.purchase", "website_content_views",
+        "messaging_conversations_started", "messaging_first_reply",
+        "mobile_app_install", "app_use", "app_install",
+        "app_custom_event.fb_mobile_achievement_unlocked"
     ])
     # Fill new dataframe with matching columns from the CSV data
     for col in dft.columns:
         if col in df.columns:
             dft[col] = df[col]
+    print(dft)
     return dft
 
 
@@ -438,7 +407,6 @@ def mainfnc():
         except Exception as e:
             print(f"Failed to create report for account {account}. Error: {e}")
             continue
-        print(1)
         # Wait for the report to be ready
         if wait_for_report(job_id):
             try:
@@ -526,6 +494,7 @@ def mainfnc():
 
     # Nếu công việc hoàn thành mà không có lỗi nào
     print("<script>showSuccessMessage();</script>")
+    return "success"
 
 
 # Run main function

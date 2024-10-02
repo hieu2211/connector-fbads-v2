@@ -27,8 +27,10 @@
             const errorDiv = document.getElementById('error-message');
             errorDiv.innerText = message;
             errorDiv.style.display = 'block';
+            document.getElementById("loadingMessage").style.display = "none";
         }
         async function submitForm(event) {
+            showLoadingMessage()
             event.preventDefault();  // Ngăn chặn hành vi submit mặc định của form
             const formData = new FormData(event.target);
             try {
@@ -40,11 +42,21 @@
                 if (result.status === 'error') {
                     showErrorMessage(result.message);
                 } else if (result.status === 'success') {
-                    window.location.reload();  // Tải lại trang nếu thành công
+                    showSuccessMessage();  // Tải lại trang nếu thành công
                 }
             } catch (error) {
                 showErrorMessage('An unexpected error occurred.');
             }
+        }
+        function showLoadingMessage() {
+            document.getElementById("loadingMessage").style.display = "block";
+            document.getElementById("successMessage").style.display = "none";
+            document.getElementById("error-message").style.display = "none";
+        }
+        function showSuccessMessage() {
+            document.getElementById("loadingMessage").style.display = "none";
+            document.getElementById("successMessage").style.display = "block";
+            document.getElementById("error-message").style.display = "none";
         }
     </script>
 </head>
@@ -99,9 +111,9 @@
         <div id="error-message" style="display:none; color: red; font-weight: bold;"></div>
 
         <!-- Loading message -->
-        <!-- <div id="loadingMessage" style="display:none;">Processing, please wait...</div>
+        <div id="loadingMessage" style="display:none;">Processing, please wait...</div>
         <div id="successMessage" style="display:none;">Success! Operation completed.</div>
-        <div id="errorMessage" style="display:none;">Error! Operation failed.</div> -->
+        <!-- <div id="errorMessage" style="display:none;">Error! Operation failed.</div> -->
     </form>
 
     <!-- Loading message -->
