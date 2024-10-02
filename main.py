@@ -18,6 +18,7 @@ def index():
 
             since = request.form['since']
             until = request.form['until']
+            level_ads = request.form['level_ads']
             # Format dates to 'yyyy-mm-dd'
             since = pd.to_datetime(since).strftime('%Y-%m-%d')
             until = pd.to_datetime(until).strftime('%Y-%m-%d')
@@ -31,6 +32,7 @@ def index():
             synsc_facebook_ads.list_account = list_account
             synsc_facebook_ads.last_2day = since
             synsc_facebook_ads.yesterday = until
+            synsc_facebook_ads.level_ads = level_ads
             # Call the main function
             result = mainfnc()
             if result is not None:

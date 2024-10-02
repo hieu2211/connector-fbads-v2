@@ -73,6 +73,13 @@
         <label for="list_account">ACCOUNT ID ADS:</label>
         <input type="text" id="list_account" name="list_account" required>
 
+        <label for="level_ads">LEVELS:</label>
+        <select id="level_ads" name="level_ads" required>
+            <option value="campaign">Campaign</option>
+            <option value="adset">Ads Group</option>
+            <option value="ad">Ad</option>
+        </select>
+
         <!-- New datetime fields -->
         <label for="date">GET DATA IN RANGE(Do not get more than 2 months)</label>
         <div class="date-range">
@@ -85,8 +92,9 @@
                 <input type="date" id="until" name="until" required>
             </div>
         </div>
-
-        <input type="submit" value="Submit">
+        <div style="display:block; text-align: center;">
+            <input type="submit" value="Submit">
+        </div>
         
         <div id="error-message" style="display:none; color: red; font-weight: bold;"></div>
 
