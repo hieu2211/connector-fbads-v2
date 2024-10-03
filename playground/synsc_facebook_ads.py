@@ -49,7 +49,7 @@ fb_to_bitable_mapping = {
         "name": "Campaign name",
         "type": 1
     },  # text
-    "adset_name": {
+    "ad_set_name": {
         "name": "Ad Set Name",
         "type": 1
     },  # text
@@ -61,7 +61,7 @@ fb_to_bitable_mapping = {
         "name": "Campaign ID",
         "type": 1
     },  # text
-    "adset_id": {
+    "ad_set_id": {
         "name": "Ad set ID",
         "type": 1
     },  # text
@@ -365,7 +365,7 @@ def csv_to_df(job_id):
 
     dft = pd.DataFrame(columns=[
         "reporting_starts", "account_name", "currency", "account_id",
-        "campaign_name", "adset_name", "ad_name", "campaign_id", "adset_id",
+        "campaign_name", "ad_set_name", "ad_name", "campaign_id", "ad_set_id",
         "ad_id", "objective", "reach", "impressions", "frequency",
         "amount_spent__vnd_", "clicks__all_", "ctr__link_click_through_rate_",
         "cpc__all___vnd_", "ctr__all_",
@@ -462,7 +462,7 @@ def mainfnc():
 
                         # For specific fields, convert the value to a string
                         if df_col in [
-                                "account_id", "campaign_id", "adset_id",
+                                "account_id", "campaign_id", "ad_set_id",
                                 "ad_id"
                         ]:
                             record_data[bitable_field_name] = str(
