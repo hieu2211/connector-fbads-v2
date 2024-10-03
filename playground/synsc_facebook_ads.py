@@ -8,7 +8,8 @@ from baseopensdk.api.base.v1 import *
 from dotenv import load_dotenv, find_dotenv
 import os
 from playground.base_function import (create_bitable_field, get_bitable_fields,
-                                      create_bitable_record)
+                                      create_bitable_record,
+                                      batch_create_bitable_records)
 
 # Load environment variables
 load_dotenv(find_dotenv())
@@ -381,7 +382,7 @@ def csv_to_df(job_id):
     for col in dft.columns:
         if col in df.columns:
             dft[col] = df[col]
-    print(dft)
+    # print(dft)
     return dft
 
 
@@ -416,7 +417,6 @@ def mainfnc():
                     f"Failed to retrieve CSV data for account {account}. Error: {e}"
                 )
                 continue
-            print(2)
             if df is None or df.empty:
                 print(f"No data retrieved for account {account}.")
                 continue
@@ -446,6 +446,8 @@ def mainfnc():
                         )
 
             # Chèn dữ liệu vào Bitable
+            all_records_data = []
+
             for index, row in df.iterrows():
                 # Tạo một dict để lưu trữ dữ liệu với tên trường từ Bitable (fb_to_bitable_mapping)
                 record_data = {}
@@ -484,10 +486,14 @@ def mainfnc():
                                 df_col] if pd.notnull(
                                     row[df_col]
                                 ) else ""  # Giữ nguyên giá trị nếu không phải NaN
-                # print(record_data)
-                # Gọi hàm create_bitable_record với record_data và bitable_fields
-                create_bitable_record(client, TABLE_ID, record_data,
-                                      list(record_data.keys()), bitable_fields)
+
+                # Thêm record_data vào danh sách all_records_data
+                all_records_data.append(record_data)
+            # print(all_records_data)
+            # Sau khi hoàn tất việc thu thập tất cả các bản ghi, gọi hàm batch_create_bitable_records
+            batch_create_bitable_records(client, TABLE_ID, all_records_data,
+                                         list(all_records_data[0].keys()),
+                                         bitable_fields)
 
         else:
             print(f"Report for account {account} did not complete.")
@@ -500,3 +506,113 @@ def mainfnc():
 # Run main function
 if __name__ == "__main__":
     mainfnc()
+
+# Create a Record
+# def mainfnc():
+#     # Build Lark client
+#     client: BaseClient = BaseClient.builder() \
+#         .app_token(APP_TOKEN) \
+#         .personal_base_token(PERSONAL_BASE_TOKEN) \
+#         .build()
+
+#     # Lấy danh sách các fields hiện có trong Bitable
+#     bitable_fields = get_bitable_fields(client, TABLE_ID)
+#     if not bitable_fields:
+#         print("Could not retrieve Bitable fields. Exiting.")
+#         print("<script>showErrorMessage();</script>")
+#         return
+
+#     for account in list_account:
+#         try:
+#             job_id = create_report(account)  # Get job_id from API
+#             print(f"Report run ID for account {account}: {job_id}")
+#         except Exception as e:
+#             print(f"Failed to create report for account {account}. Error: {e}")
+#             continue
+#         # Wait for the report to be ready
+#         if wait_for_report(job_id):
+#             try:
+#                 df = csv_to_df(job_id)  # Download CSV and convert to dataframe
+#             except Exception as e:
+#                 print(
+#                     f"Failed to retrieve CSV data for account {account}. Error: {e}"
+#                 )
+#                 continue
+#             if df is None or df.empty:
+#                 print(f"No data retrieved for account {account}.")
+#                 continue
+#             print(df.head())  # Display first 5 rows of the dataframe
+
+#             # Lấy danh sách tên cột từ DataFrame
+#             df_columns = df.columns.tolist()
+
+#             # Kiểm tra và tạo fields trong Bitable nếu chúng chưa tồn tại
+#             for df_col in df_columns:
+#                 if df_col in fb_to_bitable_mapping:
+#                     # Lấy tên và type của field từ fb_to_bitable_mapping
+#                     bitable_field_info = fb_to_bitable_mapping[df_col]
+#                     bitable_field_name = bitable_field_info["name"]
+#                     bitable_field_type = bitable_field_info["type"]
+
+#                     if bitable_field_name not in bitable_fields:
+#                         # Tạo field trong Bitable với tên và kiểu dữ liệu tương ứng
+#                         new_field = create_bitable_field(
+#                             client, TABLE_ID, bitable_field_name,
+#                             bitable_field_type)
+#                         if new_field:
+#                             bitable_fields[bitable_field_name] = new_field
+#                     else:
+#                         print(
+#                             f"Field '{bitable_field_name}' already exists in Bitable."
+#                         )
+
+#             # Chèn dữ liệu vào Bitable
+#             for index, row in df.iterrows():
+#                 # Tạo một dict để lưu trữ dữ liệu với tên trường từ Bitable (fb_to_bitable_mapping)
+#                 record_data = {}
+
+#                 for df_col in df_columns:
+#                     if df_col in fb_to_bitable_mapping:
+#                         # Lấy tên trường từ fb_to_bitable_mapping
+#                         bitable_field_name = fb_to_bitable_mapping[df_col][
+#                             "name"]
+#                         bitable_field_type = fb_to_bitable_mapping[df_col][
+#                             "type"]
+
+#                         # For specific fields, convert the value to a string
+#                         if df_col in [
+#                                 "account_id", "campaign_id", "adset_id",
+#                                 "ad_id"
+#                         ]:
+#                             record_data[bitable_field_name] = str(
+#                                 row[df_col]) if pd.notnull(row[df_col]) else ""
+
+#                         elif bitable_field_type == 5:  # Date type
+#                             date_value = pd.to_datetime(row[df_col],
+#                                                         errors='coerce')
+#                             if pd.notnull(date_value):
+#                                 record_data[bitable_field_name] = int(
+#                                     date_value.timestamp()) * 1000
+#                             else:
+#                                 record_data[bitable_field_name] = ""
+
+#                         elif bitable_field_type == 2:  # Number type
+#                             record_data[bitable_field_name] = row[
+#                                 df_col] if pd.notnull(row[df_col]) else 0
+
+#                         else:  # Text or other types
+#                             record_data[bitable_field_name] = row[
+#                                 df_col] if pd.notnull(
+#                                     row[df_col]
+#                                 ) else ""  # Giữ nguyên giá trị nếu không phải NaN
+#                 # print(record_data)
+#                 # Gọi hàm create_bitable_record với record_data và bitable_fields
+#                 create_bitable_record(client, TABLE_ID, record_data,
+#                                       list(record_data.keys()), bitable_fields)
+
+#         else:
+#             print(f"Report for account {account} did not complete.")
+
+#     # Nếu công việc hoàn thành mà không có lỗi nào
+#     print("<script>showSuccessMessage();</script>")
+#     return "success"

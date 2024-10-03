@@ -33,6 +33,7 @@ def create_bitable_field(client, table_id, field_name, field_type):
             .type(field_type)
             .build()) \
         .build()
+    PatchAppTableFormFieldRequest
 
     response = client.base.v1.app_table_field.create(request)
     if response.code == 0:
@@ -72,16 +73,13 @@ def create_bitable_record(client, table_id, row, df_columns, bitable_fields):
                 )
                 continue
 
-    print(f"fields{fields}")
-    print(f"df_columns{df_columns}")
-
     # Tạo request để thêm bản ghi vào Bitable
-    request = CreateAppTableRecordRequest.builder() \
-        .table_id(table_id) \
-        .request_body(AppTableRecord.builder()
-            .fields(fields)
-            .build()) \
-        .build()
+    # request = CreateAppTableRecordRequest.builder() \
+    #     .table_id(table_id) \
+    #     .request_body(AppTableRecord.builder()
+    #         .fields(fields)
+    #         .build()) \
+    #     .build()
 
     # Gửi request tạo bản ghi
     response = client.base.v1.app_table_record.create(request)
@@ -89,3 +87,66 @@ def create_bitable_record(client, table_id, row, df_columns, bitable_fields):
         print(f"Record added successfully for ad_id: {row.get('ad_id')}")
     else:
         print(f"Failed to add record. Error: {response.msg}")
+
+
+def batch_create_bitable_records(client, table_id, rows, df_columns,
+                                 bitable_fields):
+    # Số lượng tối đa mỗi batch (500 bản ghi)
+    max_records_per_batch = 500
+
+    # Duyệt qua tất cả các hàng (rows) và chia thành các batch
+    for i in range(0, len(rows), max_records_per_batch):
+        # Lấy một batch từ rows
+        batch = rows[i:i + max_records_per_batch]
+        # print(f"batch {batch}")
+
+        # Chuẩn bị danh sách các records cho batch này
+        records = []
+        for row in batch:
+            fields = {}
+            for col in df_columns:
+                value = row.get(col)
+                # print(f"col {col} value {value}")
+                # Kiểm tra giá trị null và chuyển tất cả thành chuỗi (text)
+                if pd.notnull(value):
+                    bitable_field = bitable_fields.get(col)
+                    # print(f"bitable_field {bitable_field}")
+                    if bitable_field is None:
+                        print(
+                            f"Warning: Field '{col}' does not exist in Bitable fields. Skipping..."
+                        )
+                        continue  # Bỏ qua field nếu không tồn tại trong Bitable
+
+                    # Chuyển tất cả giá trị thành chuỗi
+                    try:
+                        fields[col] = value
+                    except Exception as e:
+                        print(
+                            f"Error converting field '{col}' with value '{value}'. Error: {e}"
+                        )
+                        continue
+
+            # In ra các fields để kiểm tra trước khi thêm record
+            # print(f"Record fields: {fields}")
+
+            # Thêm record vào danh sách records
+            record = AppTableRecord.builder().fields(fields).build()
+            records.append(record)
+            # print(record)
+        # Tạo request body cho batch này
+        request_body = BatchCreateAppTableRecordRequestBody.builder() \
+            .records(records) \
+            .build()
+
+        # Sử dụng request_body trong BatchCreateAppTableRecordRequest
+        request = BatchCreateAppTableRecordRequest.builder() \
+            .table_id(table_id) \
+            .request_body(request_body) \
+            .build()
+
+        # Gửi request tạo các bản ghi cho batch hiện tại
+        response = client.base.v1.app_table_record.create(request)
+        if response.code == 0:
+            print(f"Batch of {len(records)} records added successfully.")
+        else:
+            print(f"Failed to add batch. Error: {response.msg}")
