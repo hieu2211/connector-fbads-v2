@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, jsonify
+from flask import Flask, request, render_template, jsonify, redirect, url_for
 from v1.controllers.synsc_facebook_ads import mainfnc
 import pandas as pd
 from flask_cors import CORS
@@ -12,12 +12,12 @@ CORS(app)
 def home():
     if request.method == 'POST':
         # Lấy dữ liệu cần thiết từ form hoặc từ API
-        secret = "YOUR_SECRET_KEY"  # Thay bằng secret của bạn
-        timestamp = str(int(time.time()))  # Lấy timestamp hiện tại
-        body = "test-body"  # Chuỗi body mẫu hoặc thực tế
+        # secret = "YOUR_SECRET_KEY"  # Thay bằng secret của bạn
+        # timestamp = str(int(time.time()))  # Lấy timestamp hiện tại
+        # body = "test-body"  # Chuỗi body mẫu hoặc thực tế
 
-        # Tạo chữ ký
-        signature = generate_signature(secret, timestamp, body)
+        # # Tạo chữ ký
+        # signature = generate_signature(secret, timestamp, body)
 
         # Chuyển hướng qua trang v1
         return redirect(url_for('v1fbads'))
@@ -109,7 +109,7 @@ def v1fbads():
     #     return jsonify(status='error',
     #                    message=f"An error occurred: {error_message}")
 
-    # return render_template('v1-fbads.html')
+    return render_template('v1-fbads.html')
 
 
 if __name__ == '__main__':
