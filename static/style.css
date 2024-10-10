@@ -1,10 +1,9 @@
-body {
+/* body {
     font-family: 'Arial', sans-serif;
     background: linear-gradient(135deg, #d0e9fb, #FFF);
     display: flex;
     justify-content: center;
     align-items: center;
-    /* height: 100vh; */
     margin: 0;
 }
 
@@ -35,7 +34,7 @@ input[type="text"],
 input[type="submit"], 
 input[type="date"],
 select{
-    width: calc(100% - 22px); /* Width minus padding and border */
+    width: calc(100% - 22px); 
     padding: 10px;
     margin-bottom: 20px;
     margin-top: 8px;
@@ -73,23 +72,22 @@ input[type="submit"]:hover {
     right: 10px;
 }
 
-/* Style for the date range div to align items in one row */
 .date-range {
     display: flex;
     justify-content: space-between;
 }
 .date-range div {
-    width: 48%; /* Make each date input take up about half the available width */
+    width: 48%; 
 }
 .date-range label {
-    margin-bottom: 2px; /* Adjust margin for the date labels */
+    margin-bottom: 2px; 
 }
 .date-range input[type="date"] {
-    width: calc(100% - 20px); /* Width minus padding and border */
+    width: calc(100% - 20px); 
 }
 
 .error {
     color: red;
     font-weight: bold;
     margin-top: 10px;
-}
+} */
