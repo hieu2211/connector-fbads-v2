@@ -34,7 +34,7 @@
             event.preventDefault();  // Ngăn chặn hành vi submit mặc định của form
             const formData = new FormData(event.target);
             try {
-                const response = await fetch('/', {
+                const response = await fetch('/v1', {
                     method: 'POST',
                     body: formData
                 });
@@ -45,7 +45,7 @@
                     showSuccessMessage();  // Tải lại trang nếu thành công
                 }
             } catch (error) {
-                showErrorMessage('An unexpected error occurred.');
+                // showErrorMessage('An unexpected error occurred.');
             }
         }
         function showLoadingMessage() {
