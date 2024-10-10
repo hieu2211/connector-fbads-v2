@@ -10,19 +10,10 @@ CORS(app)
 # Router trang chủ với nút bấm chuyển trang
 @app.route('/', methods=['GET', 'POST'])
 def home():
-    if request.method == 'POST':
-        # Chuyển hướng qua trang v1
-        return redirect(url_for('v1fbads'))
-
-    return '''
-    <div><h3>Các phiên bản đã được triển khai</h3></div>
-        <form method="POST">
-            <span>Phiên bản 1</span> <button type="submit">Chuyển qua trang v1</button>
-        </form>
-    '''
+    return render_template('v1-fbads.html')
 
 
-@app.route('/v1', methods=['GET', 'POST'])
+@app.route('/v1', methods=['POST'])
 def v1fbads():
     print(f"request {request}")
     if request.method == 'POST':
