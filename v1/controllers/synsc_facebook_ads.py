@@ -14,10 +14,10 @@ from flask import jsonify
 from flask import request
 from v1.controllers.base_function import (create_bitable_field,
                                           get_bitable_fields,
-                                          create_bitable_record,
-                                          batch_create_bitable_records)
+                                          create_bitable_record, batch_create_bitable_records)
 
-from replit import db
+r = redis.StrictRedis(host='103.75.180.83', port=6379, password='******', decode_responses=True)
+
 
 # Load environment variables
 load_dotenv(find_dotenv())
@@ -217,18 +217,12 @@ fb_to_bitable_mapping = {
     }  # number
 }
 
-
-def get_oauth_token(USER_TOKEN):
-    if not USER_TOKEN:
-        return None
-    return db[str(USER_TOKEN + "_oauth_token")]
-
 # Function to create a report and get the job_idx
 def create_report(USER_TOKEN, category):
     
-    access_token = db[str(USER_TOKEN + "_accesstoken")]
-    account = db[str(USER_TOKEN + "_account")]
-    level_ads = db[str(USER_TOKEN + "_level")]
+    access_token = r.get(f"{USER_TOKEN}_accesstoken")
+    account = r.get(f"{USER_TOKEN}_account")
+    level_ads = r.get(f"{USER_TOKEN}_level")
     
     end_date = today
     start_date = first_day_last_2months_str
@@ -259,7 +253,7 @@ def check_report_status(job_id):
     USER_TOKEN = json.loads(request.json.get('context',
                                              {})).get('scriptArgs',
                                                       {}).get('baseOpenID')
-    access_token = db[str(USER_TOKEN + "_accesstoken")]
+    access_token = r.get(f"{USER_TOKEN}_accesstoken")
     url = api_url + job_id
     params = {"access_token": access_token}
     response = requests.get(url, params=params)
@@ -288,7 +282,7 @@ def csv_to_df(job_id):
     USER_TOKEN = json.loads(request.json.get('context',
                                              {})).get('scriptArgs',
                                                       {}).get('baseOpenID')
-    access_token = db[str(USER_TOKEN + "_accesstoken")]
+    access_token = r.get(f"{USER_TOKEN}_accesstoken")
     # print("job_id: ", job_id)
     
     csv_url = "https://www.facebook.com/ads/ads_insights/export_report?report_run_id=" + job_id + "&format=csv&access_token=" + access_token + "&locale=en_US"
@@ -392,8 +386,7 @@ def table_meta():
                 isPrimaryCount += 1
                 field_id += 1
 
-        
-        level_ads = db[str(USER_TOKEN + "_level")]
+        level_ads = r.get(f"{USER_TOKEN}_level")
         result = {
             "code": 0,
             "msg": "",
@@ -482,8 +475,8 @@ def records():
                         record_data[bitable_field_name] = row[
                             df_col] if pd.notnull(row[df_col]) else ""
             # Thêm bản ghi vào danh sách records với primaryID là chỉ mục của dòng hiện tại
-
-            level_ads = db[str(USER_TOKEN + "_level")]
+            
+            level_ads = r.get(f"{USER_TOKEN}_level")
             primary_id = ""
             # Kiểm tra level_ads và gán giá trị cho primary_id tương ứng
             if level_ads == "campaign":
