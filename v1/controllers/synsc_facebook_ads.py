@@ -12,6 +12,7 @@ import os
 import uuid
 from flask import jsonify
 from flask import request
+import redis
 from v1.controllers.base_function import (create_bitable_field,
                                           get_bitable_fields,
                                           create_bitable_record, batch_create_bitable_records)

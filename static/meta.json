@@ -4,7 +4,7 @@
   "type": "data_connector",
   "extraData": {
     "disabledPeriodicSync": false,
-    "dataSourceConfigUiUri": "https://94297baf-9e9f-4ad9-89f2-5f43d9e99c92-00-10ibz39xqbg61.picard.replit.dev/"
+    "dataSourceConfigUiUri": "https://extension-fbads.transform.vn"
   },
   "protocol": {
     "type": "http",
